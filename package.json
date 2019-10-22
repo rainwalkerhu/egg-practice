@@ -22,9 +22,12 @@
     "clean": "ets clean"
   },
   "dependencies": {
+    "await-stream-ready": "^1.0.1",
+    "dayjs": "^1.8.16",
     "egg": "^2.6.1",
     "egg-scripts": "^2.6.0",
-    "psd": "^3.2.0"
+    "psd": "^3.2.0",
+    "stream-wormhole": "^1.1.0"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.40",

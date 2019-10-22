@@ -2,10 +2,10 @@
 // Do not modify this file!!!!!!!!!
 
 import 'egg';
-import ExportTest from '../../../app/service/Test';
+import ExportPsd from '../../../app/service/psd';
 
 declare module 'egg' {
   interface IService {
-    test: ExportTest;
+    psd: ExportPsd;
   }
 }
