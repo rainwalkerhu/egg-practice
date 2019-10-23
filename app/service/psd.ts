@@ -2,6 +2,7 @@ import { Service } from 'egg';
 import { join, extname, resolve, dirname } from 'path';
 import { existsSync, mkdirSync, createWriteStream } from 'fs';
 import { sendToWormhole } from 'stream-wormhole';
+import Decoder from '../utils/psd/index';
 const PSD = require('psd');
 const dayjs = require('dayjs');
 const awaitWriteStream = require('await-stream-ready').write;
@@ -15,15 +16,18 @@ export default class Psd extends Service {
     const file = resolve(__dirname, '../public/example.psd');
     const psd = PSD.fromFile(file);
     psd.parse();
-    const tree = psd.tree().export();
-    return tree;
+    const dataView = new Decoder(psd);
+
+    console.log(dataView.data);
+    // const tree = dataView.export();
+    // return dataView;
   }
   public async upload() {
       const stream = await this.ctx.getFileStream();
       // 基础的目录
       const uplaodBasePath = 'app/public/uploads';
       // 生成文件名
-      const filename = `${Date.now()}${extname(stream.filename).toLocaleLowerCase()}`;
+      const filename = `${Date.now()}${Math.round(Math.random() * 1000)}${extname(stream.filename).toLocaleLowerCase()}`;
       // 生成文件夹
       const dir = dayjs(Date.now()).format('YYYY/MM/DD');
       function mkdirsSync(dir) {
